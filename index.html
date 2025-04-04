@@ -170,8 +170,9 @@
 				</div>
 			</div>
 			<div class="btn-submit">
-				<input type="file" name="" id="pic1">
-				<label for="pic1" class="btn-pic"><i class="fa-solid fa-camera-retro" style="color: #FFF;"></i></label>
+				<input type="file" id="imageInput" accept="image/*" hidden>
+				<label for="imageInput" id="camera-icon" class="btn-pic"><i class="fa-solid fa-camera-retro" style="color: #FFF;"></i></label>
+				<img id="imagePreview" src="" alt="Uploaded Image" style="display:none; max-width: 20%; height: auto; margin-left:15px;">
 
 			</div>
 			<div class="btn-submit">
@@ -180,5 +181,21 @@
             
         </form>
     </div>
+	<script>
+        document.getElementById('imageInput').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = document.getElementById('imagePreview');
+                    img.src = e.target.result;
+                    img.style.display = 'block';
+					document.getElementById('camera-icon').style.display = 'none';
+                }
+                reader.readAsDataURL(file);
+				
+            }
+        });
+    </script>
 </body>
 </html>
